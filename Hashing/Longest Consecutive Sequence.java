@@ -14,18 +14,21 @@ class Solution {
             numsSet.add(num);
         }
 
-        // We should iterate over input array and check, if there is a left neighbour present
-        // - if the neighbor present, we start counting the length of a sequence
+        // We should iterate over set and check, if there is a left neighbour present
+        // - if the neighbor is not present, we start counting the length of a sequence, until sequence ends
         int maxSequence = 0;
-        for (int num: nums) {
-            int sequence = 1;
-            int currentNumber = num;
-            while (numsSet.contains(currentNumber - 1)) {
-                currentNumber--;
-                sequence++;
-            }
+        for (int num: numsSet) {
+            if (!numsSet.contains(num - 1)) {
+                int sequence = 1;
+                int currentNumber = num;
 
-            maxSequence = Math.max(maxSequence, sequence);
+                while (numsSet.contains(currentNumber + 1)) {
+                    currentNumber++;
+                    sequence++;
+                }
+            
+                maxSequence = Math.max(maxSequence, sequence);
+            }
         }
 
         return maxSequence;
